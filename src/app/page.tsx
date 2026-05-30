@@ -5,8 +5,12 @@ import HeroCard from "../components/HeroCard";
 import CourseCard from "../components/CourseCard";
 import ActivityCard from "../components/ActivityCard";
 
+import AnimatedGrid, {
+  AnimatedItem,
+} from "../components/AnimatedGrid";
+
 export default async function Home() {
-  const { data: courses } = await supabase
+  const { data: courses, error } = await supabase
     .from("courses")
     .select("*");
 
@@ -15,23 +19,37 @@ export default async function Home() {
       <Sidebar />
 
       <main className="flex-1 p-6">
-        <section className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          <div className="lg:col-span-2">
-            <HeroCard />
-          </div>
+        <AnimatedGrid>
+
+          <AnimatedItem>
+            <div className="lg:col-span-2">
+              <HeroCard />
+            </div>
+          </AnimatedItem>
 
           {courses?.map((course) => (
-            <CourseCard
-              key={course.id}
-              title={course.title}
-              progress={course.progress}
-            />
+            <AnimatedItem key={course.id}>
+              <CourseCard
+                title={course.title}
+                progress={course.progress}
+                icon_name={course.icon_name}
+              />
+            </AnimatedItem>
           ))}
 
-          <div className="lg:col-span-2">
-            <ActivityCard />
-          </div>
-        </section>
+          <AnimatedItem>
+            <div className="lg:col-span-2">
+              <ActivityCard />
+            </div>
+          </AnimatedItem>
+
+        </AnimatedGrid>
+
+        {error && (
+          <p className="mt-6 text-red-500">
+            Failed to load courses.
+          </p>
+        )}
       </main>
     </div>
   );
