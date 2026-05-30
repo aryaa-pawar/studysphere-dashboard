@@ -28,11 +28,14 @@ export default function AnimatedGrid({
 
 export function AnimatedItem({
   children,
+  className = "",
 }: {
   children: React.ReactNode;
+  className?: string;
 }) {
   return (
     <motion.div
+      className={className}
       variants={{
         hidden: {
           opacity: 0,

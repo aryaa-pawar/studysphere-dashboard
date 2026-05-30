@@ -21,10 +21,8 @@ export default async function Home() {
       <main className="flex-1 p-6">
         <AnimatedGrid>
 
-          <AnimatedItem>
-            <div className="lg:col-span-2">
-              <HeroCard />
-            </div>
+          <AnimatedItem className="lg:col-span-2">
+            <HeroCard />
           </AnimatedItem>
 
           {courses?.map((course) => (
@@ -37,10 +35,8 @@ export default async function Home() {
             </AnimatedItem>
           ))}
 
-          <AnimatedItem>
-            <div className="lg:col-span-2">
-              <ActivityCard />
-            </div>
+          <AnimatedItem className="lg:col-span-2">
+            <ActivityCard />
           </AnimatedItem>
 
         </AnimatedGrid>
