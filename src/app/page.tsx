@@ -1,23 +1,38 @@
 import { supabase } from "../lib/supabase";
 
+import Sidebar from "../components/Sidebar";
+import HeroCard from "../components/HeroCard";
+import CourseCard from "../components/CourseCard";
+import ActivityCard from "../components/ActivityCard";
+
 export default async function Home() {
-  const { data, error } = await supabase
+  const { data: courses } = await supabase
     .from("courses")
     .select("*");
 
   return (
-    <main className="p-10">
-      <h1 className="text-3xl font-bold mb-6">
-        Learning Dashboard
-      </h1>
+    <div className="flex min-h-screen bg-[#0B0B0C] text-white">
+      <Sidebar />
 
-      <pre>
-        {JSON.stringify(data, null, 2)}
-      </pre>
+      <main className="flex-1 p-6">
+        <section className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          <div className="lg:col-span-2">
+            <HeroCard />
+          </div>
 
-      {error && (
-        <p>Error: {error.message}</p>
-      )}
-    </main>
+          {courses?.map((course) => (
+            <CourseCard
+              key={course.id}
+              title={course.title}
+              progress={course.progress}
+            />
+          ))}
+
+          <div className="lg:col-span-2">
+            <ActivityCard />
+          </div>
+        </section>
+      </main>
+    </div>
   );
 }
