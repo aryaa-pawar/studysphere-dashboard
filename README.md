@@ -1,10 +1,15 @@
 # StudySphere
 
-A modern learning analytics dashboard built with Next.js, Supabase, Tailwind CSS, and Framer Motion.
+A modern learning analytics dashboard built with **Next.js**, **Supabase**, **Tailwind CSS**, and **Framer Motion**.
 
-StudySphere helps students track learning progress across multiple subjects through a responsive dashboard featuring progress indicators, activity insights, and personalized learning metrics.
+StudySphere helps students monitor learning progress across multiple subjects through an intuitive dashboard featuring progress tracking, activity insights, and personalized learning metrics.
 
----
+## Live Demo
+
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/a25e8f19-67f7-4b38-815c-285353a89178" />
+
+
+**Deployment:** https://studysphere-dashboard-k1qp-7knsmwemk-arya-pawar-s-projects.vercel.app/
 
 ## Features
 
@@ -40,21 +45,37 @@ StudySphere helps students track learning progress across multiple subjects thro
 
 ## Architecture Decisions
 
-### Why Server Components?
+### Server and Client Component Split
 
-Course data is fetched in a Server Component (`src/app/page.tsx`) to reduce unnecessary client-side requests and keep data loading efficient.
+The application follows the Next.js App Router architecture by separating data-fetching logic from interactive UI elements.
+
+**Server Components**
+
+* `src/app/page.tsx`
+* Fetches course data directly from Supabase
+* Reduces unnecessary client-side API requests
+* Improves performance and initial page load
+
+**Client Components**
+
+* Dashboard cards
+* Sidebar navigation
+* Activity visualizations
+* Framer Motion animations
+
+Interactive elements are isolated within Client Components while data retrieval remains on the server.
 
 ### Why Supabase?
 
-Supabase provides a lightweight PostgreSQL backend with minimal setup, making it ideal for rapidly building data-driven applications.
+Supabase provides a lightweight PostgreSQL backend with a simple developer experience and seamless integration with Next.js applications. It allows rapid development without managing custom backend infrastructure.
 
 ### Why Framer Motion?
 
-Framer Motion is used for subtle entrance animations, hover interactions, and navigation transitions that enhance the user experience without overwhelming the interface.
+Framer Motion enables smooth entrance animations, hover interactions, and staggered transitions that improve user experience while maintaining performance.
 
 ### Why a Bento Layout?
 
-The bento-style layout improves information hierarchy by allowing important content such as learning metrics and progress tracking to stand out while keeping the interface visually organized.
+The bento-style dashboard improves information hierarchy by emphasizing key learning metrics while maintaining a clean and visually organized interface.
 
 ---
 
@@ -70,7 +91,7 @@ The dashboard expects a `courses` table with the following structure:
 | icon_name  | text      |
 | created_at | timestamp |
 
-Example course data:
+### Example Course Data
 
 * Web Development Fundamentals
 * Object Oriented Programming
@@ -86,26 +107,32 @@ Example course data:
 Create a `.env.local` file in the project root:
 
 ```env
-NEXT_PUBLIC_SUPABASE_URL=
-NEXT_PUBLIC_SUPABASE_ANON_KEY=
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 ```
 
-An `.env.example` file is included in the repository.
+A `.env.example` file is included in the repository for reference.
 
 ---
 
 ## Local Development
 
-Install dependencies:
+### Install Dependencies
 
 ```bash
 npm install
 ```
 
-Start the development server:
+### Start Development Server
 
 ```bash
 npm run dev
+```
+
+### Build Production Version
+
+```bash
+npm run build
 ```
 
 Open:
@@ -116,29 +143,48 @@ http://localhost:3000
 
 ---
 
-## Project Highlights
+## Project Structure
 
-* Server-rendered data fetching
-* Responsive design across desktop, tablet, and mobile
-* Animated learning progress visualization
-* Reusable component architecture
-* Loading and error state handling
-* Clean and maintainable code structure
+```text
+src/
+├── app/
+│   ├── page.tsx
+│   ├── loading.tsx
+│   ├── error.tsx
+│   └── layout.tsx
+├── components/
+│   ├── HeroCard.tsx
+│   ├── CourseCard.tsx
+│   ├── ActivityCard.tsx
+│   ├── Sidebar.tsx
+│   └── AnimatedGrid.tsx
+├── types/
+└── lib/
+```
 
 ---
 
-## Future Improvements
+## Performance Considerations
 
-* Learning goals and milestones
-* Subject-wise analytics
-* Progress history tracking
-* Achievement badges and streak rewards
-* User authentication and personalized dashboards
+* Server-side data fetching using Next.js Server Components
+* Reduced client-side network requests
+* Optimized App Router architecture
+* Loading skeletons for improved perceived performance
+* Reusable component structure for maintainability
+* Responsive layouts optimized for desktop and mobile devices
+
+---
+
+## Challenges Faced
+
+One challenge was balancing the Server Component and Client Component boundaries in Next.js App Router. Course data fetching was handled on the server to improve efficiency, while interactive dashboard elements and animations were implemented as Client Components.
+
+Managing loading, error, and empty states was also important to ensure a reliable user experience regardless of data availability or network conditions.
 
 ---
 
 ## Author
 
-Arya Pawar
+**Arya Pawar**
 
 Frontend Intern Challenge Submission
