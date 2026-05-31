@@ -1,54 +1,144 @@
-# Learning Dashboard
+# StudySphere
 
-A dark-mode learning dashboard built for the Frontend Intern Challenge. The app uses Next.js App Router, Supabase, Tailwind CSS, Framer Motion, and Lucide React.
+A modern learning analytics dashboard built with Next.js, Supabase, Tailwind CSS, and Framer Motion.
 
-## What It Does
+StudySphere helps students track learning progress across multiple subjects through a responsive dashboard featuring progress indicators, activity insights, and personalized learning metrics.
 
-- Fetches course data from a Supabase `courses` table on the server
-- Renders a bento-style dashboard with a sidebar, hero tile, course tiles, and activity tile
-- Uses Framer Motion for staggered entrance, hover elevation, and smooth sidebar selection states
-- Shows a route-level loading skeleton and a custom error state
+---
 
-## Architecture
+## Features
 
-### Server and client split
+* Server-side course data fetching using Supabase
+* Responsive bento-style dashboard layout
+* Personalized hero section with learning statistics
+* Course progress tracking with animated progress bars
+* Dynamic Lucide icons based on course categories
+* Learning activity heatmap visualization
+* Responsive navigation for desktop, tablet, and mobile devices
+* Framer Motion powered micro-interactions and staggered animations
+* Loading skeletons for improved perceived performance
+* Error boundary handling and empty states
 
-- `src/app/page.tsx` is a server component that queries Supabase.
-- Interactive visual pieces live in client components such as the sidebar, course card, activity card, and animated grid.
-- This keeps the data fetch on the server while leaving motion and selection state on the client.
+---
 
-### Data model
+## Tech Stack
 
-The dashboard expects a `courses` table with:
+### Frontend
 
-- `id` uuid primary key
-- `title` text
-- `progress` integer
-- `icon_name` text
-- `created_at` timestamp
+* Next.js 16 (App Router)
+* TypeScript
+* Tailwind CSS
+* Framer Motion
+* Lucide React
 
-### Environment variables
+### Backend
 
-Create a `.env.local` file with:
+* Supabase
+* PostgreSQL
 
-```bash
+---
+
+## Architecture Decisions
+
+### Why Server Components?
+
+Course data is fetched in a Server Component (`src/app/page.tsx`) to reduce unnecessary client-side requests and keep data loading efficient.
+
+### Why Supabase?
+
+Supabase provides a lightweight PostgreSQL backend with minimal setup, making it ideal for rapidly building data-driven applications.
+
+### Why Framer Motion?
+
+Framer Motion is used for subtle entrance animations, hover interactions, and navigation transitions that enhance the user experience without overwhelming the interface.
+
+### Why a Bento Layout?
+
+The bento-style layout improves information hierarchy by allowing important content such as learning metrics and progress tracking to stand out while keeping the interface visually organized.
+
+---
+
+## Database Schema
+
+The dashboard expects a `courses` table with the following structure:
+
+| Column     | Type      |
+| ---------- | --------- |
+| id         | uuid      |
+| title      | text      |
+| progress   | integer   |
+| icon_name  | text      |
+| created_at | timestamp |
+
+Example course data:
+
+* Web Development Fundamentals
+* Object Oriented Programming
+* Database Management Systems
+* Computer Networks
+* Operating Systems
+* Machine Learning Basics
+
+---
+
+## Environment Variables
+
+Create a `.env.local` file in the project root:
+
+```env
 NEXT_PUBLIC_SUPABASE_URL=
 NEXT_PUBLIC_SUPABASE_ANON_KEY=
 ```
 
-The repo includes `.env.example` with the same keys.
+An `.env.example` file is included in the repository.
 
-## Setup
+---
+
+## Local Development
+
+Install dependencies:
 
 ```bash
 npm install
+```
+
+Start the development server:
+
+```bash
 npm run dev
 ```
 
-Then open `http://localhost:3000`.
+Open:
 
-## Notes
+```text
+http://localhost:3000
+```
 
-- Route loading lives in `src/app/loading.tsx`.
-- The page is forced to render dynamically so Supabase data stays live.
-- Progress bars animate with transform-based motion to keep the interaction lightweight.
+---
+
+## Project Highlights
+
+* Server-rendered data fetching
+* Responsive design across desktop, tablet, and mobile
+* Animated learning progress visualization
+* Reusable component architecture
+* Loading and error state handling
+* Clean and maintainable code structure
+
+---
+
+## Future Improvements
+
+* Learning goals and milestones
+* Subject-wise analytics
+* Progress history tracking
+* Achievement badges and streak rewards
+* User authentication and personalized dashboards
+
+---
+
+## Author
+
+Arya Pawar
+
+Frontend Intern Challenge Submission
