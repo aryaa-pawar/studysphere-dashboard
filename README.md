@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Learning Dashboard
 
-## Getting Started
+A dark-mode learning dashboard built for the Frontend Intern Challenge. The app uses Next.js App Router, Supabase, Tailwind CSS, Framer Motion, and Lucide React.
 
-First, run the development server:
+## What It Does
+
+- Fetches course data from a Supabase `courses` table on the server
+- Renders a bento-style dashboard with a sidebar, hero tile, course tiles, and activity tile
+- Uses Framer Motion for staggered entrance, hover elevation, and smooth sidebar selection states
+- Shows a route-level loading skeleton and a custom error state
+
+## Architecture
+
+### Server and client split
+
+- `src/app/page.tsx` is a server component that queries Supabase.
+- Interactive visual pieces live in client components such as the sidebar, course card, activity card, and animated grid.
+- This keeps the data fetch on the server while leaving motion and selection state on the client.
+
+### Data model
+
+The dashboard expects a `courses` table with:
+
+- `id` uuid primary key
+- `title` text
+- `progress` integer
+- `icon_name` text
+- `created_at` timestamp
+
+### Environment variables
+
+Create a `.env.local` file with:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The repo includes `.env.example` with the same keys.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Setup
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm install
+npm run dev
+```
 
-## Learn More
+Then open `http://localhost:3000`.
 
-To learn more about Next.js, take a look at the following resources:
+## Notes
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Route loading lives in `src/app/loading.tsx`.
+- The page is forced to render dynamically so Supabase data stays live.
+- Progress bars animate with transform-based motion to keep the interaction lightweight.

@@ -12,19 +12,32 @@ const navItems = [
   {
     name: "Dashboard",
     icon: LayoutDashboard,
+    targetId: "dashboard",
   },
   {
     name: "Courses",
     icon: BookOpen,
+    targetId: "courses",
   },
   {
     name: "Progress",
     icon: BarChart3,
+    targetId: "progress",
   },
 ];
 
 export default function Sidebar() {
   const [active, setActive] = useState("Dashboard");
+
+  const handleClick = (name: string, targetId: string) => {
+    setActive(name);
+
+    const target = document.getElementById(targetId);
+    target?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
 
   return (
     <>
@@ -45,15 +58,16 @@ export default function Sidebar() {
       >
         <h2
           className="
+            font-[family-name:var(--font-display)]
             mb-10
+            hidden
             text-lg
             font-semibold
             text-white
             lg:block
-            hidden
           "
         >
-          LearnOS
+          StudySphere
         </h2>
 
         <ul className="space-y-3">
@@ -62,8 +76,15 @@ export default function Sidebar() {
 
             return (
               <li key={item.name}>
-                <button
-                  onClick={() => setActive(item.name)}
+                <motion.button
+                  type="button"
+                  onClick={() => handleClick(item.name, item.targetId)}
+                  whileHover={{
+                    scale: 1.01,
+                  }}
+                  whileTap={{
+                    scale: 0.99,
+                  }}
                   className="
                     relative
                     flex
@@ -76,6 +97,7 @@ export default function Sidebar() {
                     text-zinc-300
                     transition-colors
                   "
+                  aria-current={active === item.name ? "page" : undefined}
                 >
                   {active === item.name && (
                     <motion.div
@@ -109,7 +131,7 @@ export default function Sidebar() {
                   >
                     {item.name}
                   </span>
-                </button>
+                </motion.button>
               </li>
             );
           })}
@@ -139,9 +161,16 @@ export default function Sidebar() {
           const Icon = item.icon;
 
           return (
-            <button
+            <motion.button
               key={item.name}
-              onClick={() => setActive(item.name)}
+              type="button"
+              onClick={() => handleClick(item.name, item.targetId)}
+              whileHover={{
+                y: -1,
+              }}
+              whileTap={{
+                scale: 0.98,
+              }}
               className="
                 relative
                 flex
@@ -150,6 +179,7 @@ export default function Sidebar() {
                 gap-1
                 text-zinc-400
               "
+              aria-current={active === item.name ? "page" : undefined}
             >
               {active === item.name && (
                 <motion.div
@@ -177,7 +207,7 @@ export default function Sidebar() {
               >
                 {item.name}
               </span>
-            </button>
+            </motion.button>
           );
         })}
       </nav>

@@ -42,11 +42,11 @@ export default function CourseCard({
       className="
         relative
         overflow-hidden
+        border
+        border-zinc-800
         rounded-3xl
         bg-zinc-900
         p-6
-        border
-        border-zinc-800
       "
     >
       <div
@@ -60,6 +60,7 @@ export default function CourseCard({
           pointer-events-none
         "
       />
+      <div className="pointer-events-none absolute inset-0 rounded-3xl ring-1 ring-inset ring-white/[0.03]" />
 
       <div className="flex items-center justify-between">
         <div
@@ -84,21 +85,23 @@ export default function CourseCard({
         </span>
       </div>
 
-      <h3 className="mt-5 text-lg font-semibold">
+      <h3 className="font-[family-name:var(--font-display)] mt-5 min-h-14 text-lg font-semibold tracking-tight">
         {title}
       </h3>
 
-      <div className="mt-5 h-2 rounded-full bg-zinc-800">
+      <div className="mt-5 h-2 overflow-hidden rounded-full bg-zinc-800">
         <motion.div
-          initial={{ width: 0 }}
+          initial={{ scaleX: 0 }}
           animate={{
-            width: `${progress}%`,
+            scaleX: progress / 100,
           }}
           transition={{
             duration: 1,
+            ease: "easeOut",
           }}
           className="
             h-full
+            origin-left
             rounded-full
             bg-emerald-500
           "
