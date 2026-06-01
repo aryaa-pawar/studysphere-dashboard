@@ -9,7 +9,7 @@ StudySphere helps students monitor learning progress across multiple subjects th
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/a25e8f19-67f7-4b38-815c-285353a89178" />
 
 
-**Deployment:** https://studysphere-dashboard-k1qp-7knsmwemk-arya-pawar-s-projects.vercel.app/
+**Deployment:** [https://studysphere-dashboard-k1qp-7knsmwemk-arya-pawar-s-projects.vercel.app](https://studysphere-dashboard-k1qp.vercel.app)/
 
 ## Features
 
